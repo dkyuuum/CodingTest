@@ -1,34 +1,34 @@
-import java.util.Scanner;
-import java.util.Stack;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NumberFormatException, IOException {
         Scanner sc = new Scanner(System.in);
-        
-        int n = sc.nextInt();
         Stack<Integer> stack = new Stack<>();
-        StringBuilder result = new StringBuilder();
+        StringBuffer result = new StringBuffer();
 
-        int nextPush = 1; 
+        int count = sc.nextInt();
 
-        for (int i = 0; i < n; i++) {
+        int nextPush = 1;  
+
+        for (int i = 0; i < count; i++) {
             int num = sc.nextInt();
 
-            while (nextPush <= num) { 
+            while (nextPush <= num) {
                 stack.push(nextPush++);
                 result.append("+\n");
+                continue;
             }
-
             if (!stack.isEmpty() && stack.peek() == num) {
                 stack.pop();
                 result.append("-\n");
-            } else {
-                System.out.println("NO");
-                return;
             }
-        }
-
-        System.out.println(result); 
-        sc.close();
+             else {        
+                 System.out.println("NO"); 
+                return;
+             }
+         }
+         System.out.print(result); 
+         sc.close();
     }
 }
