@@ -2,13 +2,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int num = Integer.parseInt(br.readLine());
-        HashMap<String, Integer> map = new HashMap<>();
+        TreeMap<String, Integer> map = new TreeMap<>();
 
         for (int i=0; i<num; i++) {
             String title = br.readLine();
@@ -16,18 +17,14 @@ public class Main {
         }
 
         int max = 0;
-        String bestSeller = "";
+        String maxTitle = "";
         for (String title: map.keySet()) {
             int count = map.get(title);
             if(count > max) {
                 max = count;
-                bestSeller = title;
-            } else if (count == max) {
-                if  (title.compareTo(bestSeller) < 0) {
-                    bestSeller = title;
-                }
+                maxTitle = title;
             }
         }
-        System.out.println(bestSeller);
+        System.out.println(maxTitle);
     }
 }
