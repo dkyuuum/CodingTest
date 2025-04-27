@@ -20,10 +20,10 @@ public class Main {
             arr[i] = Integer.parseInt(st2.nextToken());
 
             if (arr[i] > max) {
-                max = arr[i];
+                max = arr[i]; //
             }
         }
-        Arrays.sort(arr);
+//        Arrays.sort(arr);
 
         int min = 0;
         int result = 0;
@@ -46,6 +46,5 @@ public class Main {
             }
         }
         System.out.println(result);
-
     }
 }
