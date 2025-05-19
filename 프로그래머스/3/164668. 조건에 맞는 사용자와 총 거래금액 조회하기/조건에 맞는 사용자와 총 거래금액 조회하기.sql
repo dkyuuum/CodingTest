@@ -1,0 +1,9 @@
+# select USER_ID, NICKNAME, TOTAL_SALES
+select USER_ID, NICKNAME, sum(PRICE) as TOTAL_SALES
+from USED_GOODS_BOARD a
+    join USED_GOODS_USER b
+    on a.WRITER_ID = b.USER_ID
+where a.STATUS = "DONE"
+group by WRITER_ID
+having TOTAL_SALES >= 700000
+order by TOTAL_SALES
