@@ -1,11 +1,9 @@
--- 코드를 작성해주세요
-SELECT i.ID, n.FISH_NAME, i.LENGTH
-FROM FISH_INFO i JOIN FISH_NAME_INFO n 
-    ON i.FISH_TYPE = n.FISH_TYPE
-WHERE (n.FISH_TYPE, LENGTH) IN 
-    (    
-    SELECT FISH_TYPE, MAX(LENGTH)
-    FROM FISH_INFO
-    GROUP BY FISH_TYPE
-    )
-ORDER BY ID ASC
+select a.ID, b.FISH_NAME, a.LENGTH
+from FISH_INFO a
+join FISH_NAME_INFO b on a.FISH_TYPE = b.FISH_TYPE
+where a.LENGTH in (
+    select distinct max(LENGTH)
+    from FISH_INFO
+    where FISH_TYPE = A.FISH_TYPE
+)
+order by a.ID;
