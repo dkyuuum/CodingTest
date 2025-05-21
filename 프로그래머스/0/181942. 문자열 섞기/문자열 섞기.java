@@ -5,11 +5,7 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         
         for (int i=0; i<str2.length(); i++) {
-            char c = str1.charAt(i);
-            char ch = str2.charAt(i);
-            
-            sb.append(c);
-            sb.append(ch);
+            sb.append(str1.charAt(i)).append(str2.charAt(i));
         }
         return sb.toString();
     }
