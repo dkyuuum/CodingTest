@@ -27,14 +27,16 @@ public class Main {
         int q = Integer.parseInt(br.readLine()); // 특정한 시각의 개수
         st = new StringTokenizer(br.readLine());
         int[] times = new int[q];
-        for (int i = 0; i < q; i++) {
-            times[i] = Integer.parseInt(st.nextToken());
-        }
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < q; i++) {
+            times[i] = Integer.parseInt(st.nextToken());
             sb.append(seat[times[i]]).append("\n");
         }
         System.out.println(sb);
+
+//        for (int i = 0; i < q; i++) {
+//            System.out.print(seat[times[i]] + "\n");
+//        }
     }
 }
