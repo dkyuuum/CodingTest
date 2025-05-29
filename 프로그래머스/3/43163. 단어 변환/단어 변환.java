@@ -1,43 +1,44 @@
 import java.util.*;
 
 class Solution {
-    public static int solution(String begin, String target, String[] words) {
-        Queue<String> queue = new LinkedList<>();
+    static class Word {
+        String word;
+        int count;
+        
+        Word(String word, int count) {
+            this.word = word;
+            this.count = count;
+        }
+    }
+    
+    public int solution(String begin, String target, String[] words) {
         boolean[] visited = new boolean[words.length];
-        int depth = 0;
+        return bfs(begin, target, words, visited);
+    }
+    
+    public int bfs(String begin, String target, String[] words, boolean[] visited) {
+        Queue<Word> queue = new ArrayDeque<>();
+        queue.offer(new Word(begin, 0));
 
-        queue.add(begin);
-
-        while (!queue.isEmpty()) {
-            int size = queue.size(); // 현재 단계의 단어 개수
-
-            for (int i = 0; i < size; i++) {
-                String current = queue.poll();
-                if (current.equals(target)) return depth;
-
-                String[] cSplit = current.split("");
-
-                for (int j = 0; j < words.length; j++) {
-                    if (!visited[j]) {
-                        String[] wSplit = words[j].split("");
-                        int count = 0;
-
-                        for (int k = 0; k < cSplit.length; k++) {
-                            if (!cSplit[k].equals(wSplit[k])) count++;
-                            if (count > 1) break;
-                        }
-
-                        if (count == 1) {
-                            visited[j] = true;
-                            queue.add(words[j]);
-                        }
-                    }
+        while(!queue.isEmpty()) {
+            Word cur = queue.poll(); // 현재값
+            
+            if (cur.word.equals(target)) return cur.count; // 타겟과 현재 단어가 같을 때
+                
+            for (int i=0; i<words.length; i++) {
+                int diff = 0;
+                
+                for (int j=0; j<cur.word.length(); j++) {
+                    if (cur.word.charAt(j) != words[i].charAt(j)) { diff++; }
+                }
+                
+                if (diff == 1 && !visited[i]) {
+                    visited[i] = true;
+                    queue.add(new Word(words[i], cur.count+1));
                 }
             }
-
-            depth++;
         }
-
+        
         return 0;
     }
 }
