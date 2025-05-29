@@ -23,7 +23,7 @@ class Solution {
                 if (stack.isEmpty()) return false;
                 
                 char t = stack.pop();
-                if ((c == ')' && t != '(') || (c == '}' && t != '{') || (c == ']' && t != '[')) {
+                if ((c != ')' && t == '(') || (c != '}' && t == '{') || (c != ']' && t == '[')) {
                     return false;
                 }
             }
