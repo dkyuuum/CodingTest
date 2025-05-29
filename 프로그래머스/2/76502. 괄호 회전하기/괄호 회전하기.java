@@ -2,30 +2,28 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        int count = 0;
-        int len = s.length();
-
-        for (int i = 0; i < len; i++) {
+        int answer = 0;
+        
+        for (int i=0; i<s.length(); i++) {
             String rotated = s.substring(i) + s.substring(0, i);
             if (isValid(rotated)) {
-                count++;
+                answer++;
             }
         }
-        return count;
+        return answer;
     }
-
-    private boolean isValid(String s) {
+    
+    public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
         
-        for (char c : s.toCharArray()) {
-            if (c == '(' || c == '[' || c == '{') {
+        for (char c: s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
                 stack.push(c);
             } else {
                 if (stack.isEmpty()) return false;
-                char open = stack.pop();
-                if ((c == ')' && open != '(') ||
-                    (c == ']' && open != '[') ||
-                    (c == '}' && open != '{')) {
+                
+                char t = stack.pop();
+                if ((c == ')' && t != '(') || (c == '}' && t != '{') || (c == ']' && t != '[')) {
                     return false;
                 }
             }
