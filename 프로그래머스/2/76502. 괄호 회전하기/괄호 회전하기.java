@@ -6,6 +6,7 @@ class Solution {
         
         for (int i=0; i<s.length(); i++) {
             String rotated = s.substring(i) + s.substring(0, i);
+            
             if (isValid(rotated)) {
                 answer++;
             }
@@ -16,14 +17,13 @@ class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
         
-        for (char c: s.toCharArray()) {
-            if (c == '(' || c == '{' || c == '[') {
-                stack.push(c);
-            } else {
+        for (char t: s.toCharArray()) {
+            if (t == '(' || t == '[' || t == '{') { stack.push(t); }
+            else {
                 if (stack.isEmpty()) return false;
                 
-                char t = stack.pop();
-                if ((c != ')' && t == '(') || (c != '}' && t == '{') || (c != ']' && t == '[')) {
+                char c = stack.pop();
+                if ((c == '(' && t != ')' )|| (c == '[' && t != ']') || (c == '{' && t != '}')) {
                     return false;
                 }
             }
