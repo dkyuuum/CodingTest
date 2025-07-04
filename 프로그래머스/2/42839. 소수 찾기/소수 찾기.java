@@ -3,21 +3,18 @@ import java.util.*;
 class Solution {
     HashSet<Integer> set = new HashSet<>();
     public int solution(String numbers) {
-        int len = numbers.length();
-        
-        backTracking(numbers, "0", len, new boolean[len]);
-        
+        backTracking(numbers, "0", new boolean[numbers.length()]);
         return set.size();
     }
     
-    public void backTracking(String numbers, String make, int len, boolean[] visited) {
+    public void backTracking(String numbers, String make, boolean[] visited) {
         int num = Integer.parseInt(make);
         if (isPrime(num)) set.add(num);
         
-        for (int i=0; i<len; i++) {
+        for (int i=0; i<numbers.length(); i++) {
             if (!visited[i]) {
                 visited[i] = true;
-                backTracking(numbers, make+numbers.charAt(i), len, visited);
+                backTracking(numbers, make+numbers.charAt(i), visited);
                 visited[i] = false;
             }
         }
