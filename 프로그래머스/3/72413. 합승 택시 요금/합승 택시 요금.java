@@ -1,67 +1,63 @@
 import java.util.*;
 
-// 지점의 개수 n
-// 출발지점 s
-// A의 도착지점 a
-// B의 도착지점 b
-
 class Solution {
     public int solution(int n, int s, int a, int b, int[][] fares) {
         List<List<int[]>> graph = new ArrayList<>();
         
-        for (int i=0; i<=n; i++)
-            graph.add(new ArrayList<>());
-        
-        for (int[] fare: fares) {
-            int n1 = fare[0];
-            int n2 = fare[1];
-            int m = fare[2];
+        for (int i=0; i<=n; i++) graph.add(new ArrayList<>());
+        for (int[] f: fares) {
+            int n1 = f[0];
+            int n2 = f[1];
+            int cost = f[2];
             
-            graph.get(n1).add(new int[]{n2, m});
-            graph.get(n2).add(new int[]{n1, m});
+            graph.get(n1).add(new int[]{n2, cost});
+            graph.get(n2).add(new int[]{n1, cost});
         }
         
-        int[] distS = dijkstra(graph, n, s);
         int[] distA = dijkstra(graph, n, a);
         int[] distB = dijkstra(graph, n, b);
+        int[] distS = dijkstra(graph, n, s);
         
-        int mnDist = (int)1e8;
-        for (int idx = 0; idx <= n; idx++) {
-            int nowDist = distS[idx] + distA[idx] + distB[idx];
-            mnDist = Math.min(mnDist, nowDist);
+        int minValue = (int) 1e8;
+        for (int i=0; i<=n; i++) {
+            int min = distA[i] + distB[i] + distS[i];
+            minValue = Math.min(minValue, min);
         }
-        
-        return mnDist;
+        return minValue;
     }
     
     public int[] dijkstra(List<List<int[]>> graph, int n, int start) {
-        int maxValue = (int)1e8;
-        int[] dist = new int[n+1];
-        Arrays.fill(dist, maxValue);
-        
-        dist[start] = 0;
-        
+        // 초기 세팅, 시작 노드 예약
+        int[] distance = new int[n+1];
+        Arrays.fill(distance, (int)1e8);
+        distance[start] = 0;
+
         PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[0] - o2[0]);
         pq.add(new int[]{0, start});
         
+        // while문
         while(!pq.isEmpty()) {
             int[] first = pq.poll();
             
-            int d = first[0];
-            int now = first[1];
+            int dist = first[0]; // 처음 출발지 ~ 현재 노드까지
+            int nowNode = first[1]; // 현재 노드
             
-            if (d > dist[now]) continue;
+            if (dist > distance[nowNode]) continue;
             
-            for (int[] nxtNode: graph.get(now)) {
-                int nxt = nxtNode[0];
-                int nxtDist = d + nxtNode[1];
+            // 현재 노드에서 인접한 노드들
+            for (int[] nxtNode: graph.get(nowNode)) {
+                // 다음 노드 번호
+                int next = nxtNode[0];
                 
-                if (dist[nxt] > nxtDist) {
-                    dist[nxt] = nxtDist;
-                    pq.add(new int[]{nxtDist, nxt});
+                // 다음 노드의 거리
+                int nextDist = dist + nxtNode[1];
+                
+                if  (distance[next] > nextDist) {
+                    distance[next] = nextDist;
+                    pq.add(new int[]{nextDist, next});
                 }
             }
         }
-        return dist;
+        return distance;
     }
 }
