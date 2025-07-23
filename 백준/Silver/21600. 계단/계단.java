@@ -1,39 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-         int n = Integer.parseInt(br.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] arr=new int[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
 
-         StringTokenizer st = new StringTokenizer(br.readLine());
-         int[] arr = new int[n];
-         for (int i = 0; i < n; i++) {
-             arr[i] = Integer.parseInt(st.nextToken());
-         }
-        int max = 0;
+        int[] dp=new int[n];
+        Arrays.fill(dp, 1);
+        for(int i=1;i<n;i++){
+            if(dp[i-1]+1<=arr[i]){
+                dp[i]=dp[i-1]+1;
+            }else{
+                dp[i]=arr[i];
+            }
+        }
 
-        for (int i=0; i<n; i++) {
-            // 구간 길이를 1부터 최대 가능한 길이까지 늘려가며 검사
-            for (int j=1; i+j<=n; j++) {
-                boolean isStep = true;
-                for (int k = 0; k<j; k++) {
-                    if (arr[i + k] < k + 1) { // 칸 높이 조건 검사
-                        isStep = false;
-                        break;
-                    }
-                }
-                if (isStep) {
-                    max = Math.max(max, j);
-                } else {
-                    break; // 길이 늘릴수록 조건 못맞추면 더 이상 확인하지 않아도 됨
-                }
+        int max=0;
+        for(int i=0;i<n;i++){
+            if(dp[i]>max){
+                max=dp[i];
             }
         }
 
         System.out.println(max);
-
     }
 }
