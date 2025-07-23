@@ -3,37 +3,43 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class Main {
+    static int[] dp;
+    static int N;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
 
-        int[] dp = new int[n + 1];      // 연산 횟수
-        int[] pd = new int[n + 1];    // 이전 숫자 기록
+        dp = new int[N + 1];
+        dp[1] = 0;
 
-        
-        for (int i=2; i<=n; i++) {
-            // 1 뺄 때
-            dp[i] = dp[i-1] + 1;
-            pd[i] = i-1;
+        for (int i = 2; i <= N; i++) {
+            dp[i] = dp[i - 1] + 1;
 
-            // 2로 나누어질 때
-            if (i%2 == 0 && dp[i/2]+1 < dp[i]) {
-                dp[i] = dp[i/2] + 1;
-                pd[i] = i/2;
+            if (i % 2 == 0 && dp[i / 2] + 1 < dp[i]) {
+                dp[i] = dp[i / 2] + 1;
             }
 
-            // 3으로 나누어질 때
-            if (i%3 == 0 && dp[i/3]+1 < dp[i]) {
-                dp[i] = dp[i/3] + 1;
-                pd[i] = i/3;
+            if (i % 3 == 0 && dp[i / 3] + 1 < dp[i]) {
+                dp[i] = dp[i / 3] + 1;
             }
         }
-        System.out.println(dp[n]);
 
-        StringBuilder sb = new StringBuilder();
-        for (int i=n; i>0; i=pd[i]) {
-            sb.append(i).append(" ");
+        System.out.println(dp[N]);
+        printPath(N);
+    }
+
+    // 재귀 함수로 경로 출력
+    static void printPath(int x) {
+        System.out.print(x + " ");
+        if (x == 1) return;
+
+        if (x % 3 == 0 && dp[x] == dp[x / 3] + 1) {
+            printPath(x / 3);
+        } else if (x % 2 == 0 && dp[x] == dp[x / 2] + 1) {
+            printPath(x / 2);
+        } else {
+            printPath(x - 1);
         }
-        System.out.println(sb);
     }
 }
