@@ -4,79 +4,83 @@ import java.util.*;
 public class Main {
     static class Pair {
         long num;
-        String ops;
+        String op;
 
-        Pair(long num, String ops) {
+        Pair(long num, String op) {
             this.num = num;
-            this.ops = ops;
+            this.op = op;
         }
     }
 
     public static void main(String[] args) throws IOException {
+        // 값 입력 받기
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = br.readLine().split(" ");
-        long s = Long.parseLong(input[0]);
-        long t = Long.parseLong(input[1]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
+        long s = Integer.parseInt(st.nextToken());
+        long t = Integer.parseInt(st.nextToken());
+
+        // s == t
         if (s == t) {
             System.out.println(0);
             return;
         }
 
+        // 초기화
         Queue<Pair> queue = new LinkedList<>();
-        Set<Long> visited = new HashSet<>();
+        HashSet<Long> visited = new HashSet<>();
 
         queue.add(new Pair(s, ""));
         visited.add(s);
 
+        // BFS 탐색 반복
         while (!queue.isEmpty()) {
-            Pair cur = queue.poll();
-
+            Pair current = queue.poll();
             long n;
 
-            // * 연산
-            n = cur.num * cur.num;
+            // *
+            n = current.num * current.num;
             if (n == t) {
-                System.out.println(cur.ops + "*");
+                System.out.println(current.op + "*");
                 return;
             }
-            if (n <= 1000000000 && visited.add(n)) {
-                queue.add(new Pair(n, cur.ops + "*"));
+            if (n <= 1_000_000_000 && visited.add(n)) {
+                queue.add(new Pair(n, current.op + "*"));
             }
 
-            // + 연산
-            n = cur.num + cur.num;
+            // +
+            n = current.num + current.num;
             if (n == t) {
-                System.out.println(cur.ops + "+");
+                System.out.println(current.op + "+");
                 return;
             }
-            if (n <= 1000000000 && visited.add(n)) {
-                queue.add(new Pair(n, cur.ops + "+"));
+            if (n <= 1_000_000_000 && visited.add(n)) {
+                queue.add(new Pair(n, current.op + "+"));
             }
 
-            // - 연산 (0)
-            n = 0;
+            // -
+            n = current.num - current.num;
             if (n == t) {
-                System.out.println(cur.ops + "-");
+                System.out.println(current.op + "-");
                 return;
             }
             if (visited.add(n)) {
-                queue.add(new Pair(n, cur.ops + "-"));
+                queue.add(new Pair(n, current.op + "-"));
             }
 
-            // / 연산 (1)
-            if (cur.num != 0) {
-                n = 1;
+            // /
+            if (current.num != 0) {
+                n = current.num / current.num;
+
                 if (n == t) {
-                    System.out.println(cur.ops + "/");
+                    System.out.println(current.op + "/");
                     return;
                 }
                 if (visited.add(n)) {
-                    queue.add(new Pair(n, cur.ops + "/"));
+                    queue.add(new Pair(n, current.op + "/"));
                 }
             }
         }
-
         System.out.println(-1);
     }
 }
