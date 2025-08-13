@@ -1,5 +1,5 @@
-import java.io.*;
-import java.util.*;
+import java.io .*;
+        import java.util .*;
 
 public class Main {
     static class Pair {
@@ -13,13 +13,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        // 값 입력 받기
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         long s = Integer.parseInt(st.nextToken());
         long t = Integer.parseInt(st.nextToken());
-
+        
         // s == t
         if (s == t) {
             System.out.println(0);
@@ -33,11 +32,11 @@ public class Main {
         queue.add(new Pair(s, ""));
         visited.add(s);
 
-        // BFS 탐색 반복
+        // BFS 탐색
         while (!queue.isEmpty()) {
             Pair current = queue.poll();
-            long n;
 
+            long n;
             // *
             n = current.num * current.num;
             if (n == t) {
@@ -71,11 +70,11 @@ public class Main {
             // /
             if (current.num != 0) {
                 n = current.num / current.num;
-
                 if (n == t) {
                     System.out.println(current.op + "/");
                     return;
                 }
+
                 if (visited.add(n)) {
                     queue.add(new Pair(n, current.op + "/"));
                 }
