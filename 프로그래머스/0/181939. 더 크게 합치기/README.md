@@ -1,10 +1,10 @@
 # [level 0] 더 크게 합치기 - 181939 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181939) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181939?language=javascript) 
 
 ### 성능 요약
 
-메모리: 89.8 MB, 시간: 1.79 ms
+메모리: 33.3 MB, 시간: 0.07 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 05월 21일 16:37:27
+2025년 11월 30일 22:43:46
 
 ### 문제 설명
 
