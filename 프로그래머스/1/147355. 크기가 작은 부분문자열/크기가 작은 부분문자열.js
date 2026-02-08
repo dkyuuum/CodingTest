@@ -1,15 +1,14 @@
 function solution(t, p) {
     var answer = 0;
-    var len = p.length;
+    var pLen = p.length;
+    var tLen = t.length;
     var st = t.split("");
-    var lengt = t.length - len + 1;
 
-    for (let i=0; i<lengt; i++) {
-        var sub = t.substr(i, len);
+    for (let i=0; i<tLen - pLen + 1; i++) {
+        var sub = t.substr(i, pLen);
 
         if (sub <= p) {
             answer++;
-            console.log(sub)
         }
     }    
     
