@@ -1,19 +1,19 @@
+import java.util.*;
+
 class Solution {
-    int answer = 0;
+    public static int sum = 0;
+
     public int solution(int[] numbers, int target) {
-        backtracking(numbers, target, 0, 0);
-        
-        return answer;
+        return dfs(0, 0, numbers, target);
     }
     
-    public void backtracking(int[] numbers, int target, int make, int index) {
-        if (numbers.length == index) {
-            if (make == target)
-                answer++;
-            return;
+    public int dfs(int depth, int sum, int[] numbers, int target) {
+        if (depth == numbers.length) {
+        if (sum == target) return 1;
+            else return 0;
         }
-        
-        backtracking(numbers, target, make+numbers[index], index+1);
-        backtracking(numbers, target, make-numbers[index], index+1);
+
+        return dfs(depth+1, sum + numbers[depth], numbers, target)
+             + dfs(depth+1, sum - numbers[depth], numbers, target);
     }
 }
