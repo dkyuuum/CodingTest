@@ -8,13 +8,51 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int T = Integer.parseInt(br.readLine());                // tc 횟수
+        // for (int k=0; k<T; k++) {
+        //     Queue<int[]> q = new LinkedList<>();
+
+        //     int I = Integer.parseInt(br.readLine());            // 한 변의 길이
+
+        //     int[][] dist = new int[I][I];
+        //     boolean[][] visited = new boolean[I][I];
+        //     StringTokenizer st = new StringTokenizer(br.readLine());
+        //     int startX = Integer.parseInt(st.nextToken());
+        //     int startY = Integer.parseInt(st.nextToken());
+
+        //     st = new StringTokenizer(br.readLine());
+        //     int targetX = Integer.parseInt(st.nextToken());
+        //     int targetY = Integer.parseInt(st.nextToken());
+
+        //     q.add(new int[]{startX, startY});
+        //     visited[startX][startY] = true;
+
+        //     while(!q.isEmpty()) {
+        //         int[] cur = q.poll();
+        //         int cx = cur[0];
+        //         int cy = cur[1];
+
+        //         if (targetX == cx && targetY == cy) {
+        //             System.out.println(dist[cx][cy]);
+        //             break;
+        //         }
+        //         for (int d=0; d<8; d++) {
+        //             int nx = cx + dx[d];
+        //             int ny = cy + dy[d];
+
+        //             if (nx >= 0 && ny >= 0 && nx < I && ny < I && !visited[nx][ny]) {
+        //                 dist[nx][ny] = dist[cx][cy] + 1;
+        //                 visited[nx][ny] = true;
+        //                 q.add(new int[]{nx, ny});
+        //             }
+        //         }
+        //     }
+        // }
+        
         for (int k=0; k<T; k++) {
-            Queue<int[]> q = new LinkedList<>();
+            Queue<int[]> q = new ArrayDeque<>();
 
             int I = Integer.parseInt(br.readLine());            // 한 변의 길이
 
-            int[][] dist = new int[I][I];
-            boolean[][] visited = new boolean[I][I];
             StringTokenizer st = new StringTokenizer(br.readLine());
             int startX = Integer.parseInt(st.nextToken());
             int startY = Integer.parseInt(st.nextToken());
@@ -23,25 +61,30 @@ public class Main {
             int targetX = Integer.parseInt(st.nextToken());
             int targetY = Integer.parseInt(st.nextToken());
 
-            q.add(new int[]{startX, startY});
-            visited[startX][startY] = true;
+            int[][] dist = new int[I][I];
+            for (int i = 0; i < I; i++) {
+                Arrays.fill(dist[i], -1);
+            }
 
-            while(!q.isEmpty()) {
+            q.add(new int[]{startX, startY});
+            dist[startX][startY] = 0;
+
+            while (!q.isEmpty()) {
                 int[] cur = q.poll();
                 int cx = cur[0];
                 int cy = cur[1];
 
-                if (targetX == cx && targetY == cy) {
+                if (cx == targetX && cy == targetY) {
                     System.out.println(dist[cx][cy]);
                     break;
                 }
-                for (int d=0; d<8; d++) {
+
+                for (int d = 0; d < 8; d++) {
                     int nx = cx + dx[d];
                     int ny = cy + dy[d];
 
-                    if (nx >= 0 && ny >= 0 && nx < I && ny < I && !visited[nx][ny]) {
+                    if (nx >= 0 && ny >= 0 && nx < I && ny < I && dist[nx][ny] == -1) {
                         dist[nx][ny] = dist[cx][cy] + 1;
-                        visited[nx][ny] = true;
                         q.add(new int[]{nx, ny});
                     }
                 }
