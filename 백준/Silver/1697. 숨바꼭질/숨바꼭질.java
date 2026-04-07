@@ -1,43 +1,41 @@
-import java.nio.Buffer;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        int N = sc.nextInt();
-        int K = sc.nextInt();
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
 
         System.out.println(bfs(N, K));
     }
-     public static int bfs(int start, int target) {
-        int n = 100001;
-        
-        boolean[] visited = new boolean[n];
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{start, 0});
+
+    public static int bfs(int start, int target) {
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{start, 0});
+
+        boolean[] visited = new boolean[100001];
         visited[start] = true;
 
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int position = current[0];
-            int time = current[1];
+        while(!q.isEmpty()) {
+            int[] cur = q.poll();
+            int node = cur[0];
+            int count = cur[1];
 
-            if (position == target) {
-                return time;
+            if (node == target) {
+                return count;
             }
 
-            int[] nextPositions = {position - 1, position + 1, position * 2};
-            for (int next : nextPositions) {
-                if (next >= 0 && next < n && !visited[next]) {
-                    visited[next] = true;
-                    queue.add(new int[]{next, time + 1});
+            int[] next = {node-1, node+1, node*2};
+            for (int n: next) {
+                if (n>=0 && n<100001 && !visited[n]) {
+                    visited[n] = true;
+                    q.add(new int[]{n, count+1});
                 }
-            }
+            }        
         }
-
         return -1;
     }
 }
