@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+// 덩어리 갯수 구하기 -> dfs
 public class Main {
     public static int[] dx = {1, -1,  0, 0};
     public static int[] dy = {0, 0, 1, -1};
@@ -8,51 +9,48 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
-        st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-
-        int[][] road = new int[N][N];
-        ArrayList<Integer> result = new ArrayList<>();
+        int N = Integer.parseInt(br.readLine());
+        
+        int[][] graph = new int[N][N];
+        ArrayList<Integer> dist = new ArrayList<>();
         for (int i=0; i<N; i++) {
             String line = br.readLine();
-
+            
             for (int j=0; j<N; j++) {
-                road[i][j] = line.charAt(j) - '0';
+                graph[i][j] = line.charAt(j) - '0';        
             }
         }
-
+        
         for (int i=0; i<N; i++) {
             for (int j=0; j<N; j++) {
-                if (road[i][j] == 1) {      // 값이 1이라면
-                    count = 1;               
-                    dfs(i, j, N, road);     // dfs
-                    result.add(count);
+                if (graph[i][j] == 1) {
+                    count = 1;
+                    dfs(graph, i, j, N);
+                    dist.add(count);
                 }
             }
         }
 
-        Collections.sort(result);
-        System.out.println(result.size());
-        for (int i=0; i<result.size(); i++) {
-            System.out.println(result.get(i));
+        Collections.sort(dist);
+        System.out.println(dist.size());
+        for (int next: dist) {
+            System.out.println(next);
         }
     }
 
-    public static void dfs(int mx, int my, int N, int[][] road) {
-        road[mx][my] = 0;               // 방문 처리
+    public static void dfs(int[][] graph, int cx, int cy, int N) {
+        graph[cx][cy] = 0;
 
         for (int i=0; i<4; i++) {
-            int nx = mx + dx[i];
-            int ny = my + dy[i];
-
+            int nx = cx + dx[i];
+            int ny = cy + dy[i];
+            
             if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                if (road[nx][ny] == 1) {
-                    dfs(nx, ny, N, road);
+                if (graph[nx][ny] == 1) {
+                    dfs(graph, nx, ny, N);
                     count++;
                 }
             }
         }
     }
- }
+}
