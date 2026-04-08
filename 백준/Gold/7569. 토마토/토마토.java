@@ -44,7 +44,7 @@ public class Main {
                 int nz = cz + dz[t];
 
                 if (nx >= 0 && ny >= 0 && nz >= 0 && nx < N && ny < M && nz < H) {
-                    if (tomato[nz][nx][ny] != -1 && tomato[nz][nx][ny] == 0) {
+                    if (tomato[nz][nx][ny] == 0) {
                         tomato[nz][nx][ny] = tomato[cz][cx][cy] + 1;
                         q.add(new int[]{nz, nx, ny});
                     }
