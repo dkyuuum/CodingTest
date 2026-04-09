@@ -25,13 +25,10 @@ public class Main {
 
         for (int i=0; i<N; i++) {
             int temp = p[i] - B;            // 응시자 - 총감독관 관리수 = 부감독관이 관리해야하는 응시자 수 
-            count++;
+            count++;                        // 총감독 1명
 
             if (temp > 0) {
-                int t = (temp / C);
-                if (temp % C != 0) t++;
-
-                count += t;
+                count += (temp + C - 1) / C;
             }
         }
         System.out.println(count);
