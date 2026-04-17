@@ -16,11 +16,11 @@ class Solution {
             for (int i=0; i<4; i++) {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
-            
+                
                 if (nx < 0 || ny < 0 || nx >= maps.length || ny >= maps[0].length)
                     continue;
                 
-                if (maps[nx][ny] == 1) {
+                if ( maps[nx][ny] == 1) {
                     maps[nx][ny] = maps[cx][cy] + 1;
                     q.add(new int[]{nx, ny});
                 }
