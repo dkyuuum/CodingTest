@@ -1,19 +1,17 @@
-import java.util.*;
-
 class Solution {
-    public static int sum = 0;
-
     public int solution(int[] numbers, int target) {
-        return dfs(0, 0, numbers, target);
+        return dfs(numbers, target, 0, 0);
     }
     
-    public int dfs(int depth, int sum, int[] numbers, int target) {
-        if (depth == numbers.length) {
-        if (sum == target) return 1;
-            else return 0;
+    public static int dfs(int[] numbers, int target, int depth, int sum) {
+        if (numbers.length == depth) {
+            if (target == sum) {
+                return 1;
+            } 
+            return 0;
         }
-
-        return dfs(depth+1, sum + numbers[depth], numbers, target)
-             + dfs(depth+1, sum - numbers[depth], numbers, target);
+        
+        return dfs(numbers, target, depth+1, sum+numbers[depth]) 
+                + dfs(numbers, target, depth+1, sum-numbers[depth]);
     }
 }
