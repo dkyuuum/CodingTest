@@ -15,12 +15,14 @@ class Solution {
         * 최대 몇 종류인지 고르는 문제
         * map의 사이즈만으로 가능!
         **/
-        if (map.size() > can) {
-            answer = can;
-        } else {
-            answer = map.size();
-        }
+        return Math.min(map.size(), can);
         
-        return answer;
+//         if (map.size() > can) {
+//             answer = can;
+//         } else {
+//             answer = map.size();
+//         }
+        
+//         return answer;
     }
 }
